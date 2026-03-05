@@ -13,13 +13,12 @@ mapping balances:
     value as u64.public;
 
 function mint:
-    input r0 as address.private;
-    input r1 as u64.private;
-    assert.eq r0 self.caller;
-    cast r0 r1 into r2 as Token.record;
-    async mint r0 r1 into r3;
-    output r2 as Token.record;
-    output r3 as token.aleo/mint.future;
+    input r0 as u64.private;
+    assert.eq aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px self.caller;
+    cast aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px r0 into r1 as Token.record;
+    async mint aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px r0 into r2;
+    output r1 as Token.record;
+    output r2 as token.aleo/mint.future;
 
 finalize mint:
     input r0 as address.public;
@@ -51,11 +50,16 @@ finalize transfer:
     input r1 as address.public;
     input r2 as u64.public;
     get.or_use balances[r0] 0u64 into r3;
-    sub r3 r2 into r4;
-    set r4 into balances[r0];
-    get.or_use balances[r1] 0u64 into r5;
-    add r5 r2 into r6;
-    set r6 into balances[r1];
+    gte r3 r2 into r4;
+    assert.eq r4 true;
+    sub r3 r2 into r5;
+    set r5 into balances[r0];
+    get.or_use balances[r1] 0u64 into r6;
+    add r6 r2 into r7;
+    set r7 into balances[r1];
+
+function get_address:
+    output self.caller as address.private;
 
 constructor:
     assert.eq edition 0u16;

@@ -2,19 +2,21 @@ program token.aleo {
     mapping minted_once: address => bool;
     mapping balances: address => u64;
 
+    const OWNER: address = aleo1rhgdu77hgyqd3xjj8ucu3jj9r2krwz6mnzyd80gncr5fxcwlh5rsvzp9px;
+
     record Token {
         owner: address,
         amount: u64,
     }
 
-    // One address can mint tokens only once
-    async transition mint(owner: address, amount: u64) -> (Token, Future) {
-        assert_eq(owner, self.caller);
+    // Only the owner can mint tokens only once
+    async transition mint(amount: u64) -> (Token, Future) {
+        assert_eq(OWNER, self.caller);
         let token_record: Token = Token {
-            owner: owner,
+            owner: OWNER,
             amount: amount,
         };
-        return (token_record, check(owner, amount));
+        return (token_record, check(OWNER, amount));
     }
 
     // this check if the caller has already minted or not, and updates the balance of the caller
@@ -46,11 +48,16 @@ program token.aleo {
     // this function updates the balances of the sender and the receiver after a transfer
     async function update_balances(from: address, to: address, amount: u64) {
         let from_balance: u64 = Mapping::get_or_use(balances, from, 0u64);
+        assert(from_balance >= amount);
         let updated_from_balance: u64 = from_balance - amount;
         Mapping::set(balances, from, updated_from_balance);
         let to_balance: u64 = Mapping::get_or_use(balances, to, 0u64);
         let updated_to_balance: u64 = to_balance + amount;
         Mapping::set(balances, to, updated_to_balance);
+    }
+
+    transition get_address() -> address {
+        return self.caller;
     }
 
     @noupgrade
