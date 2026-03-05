@@ -18,6 +18,13 @@ mapping has_voted:
     key as field.public;
     value as boolean.public;
 
+function new:
+    async new into r0;
+    output r0 as dao.aleo/new.future;
+
+finalize new:
+    assert.eq true true;
+
 function create_proposal:
     input r0 as field.private;
     input r1 as address.private;
