@@ -29,7 +29,7 @@ mapping proposal_counter:
 function create_proposal:
     input r0 as address.private;
     input r1 as u64.private;
-    assert.eq self.caller aleo1nz5cpl2mmu3hmzmxamp2g2fk2zu46ha53r566nc5tjzgwl4qmc8se2z4yv;
+    assert.eq self.caller aleo172dqnystp78zhgfnn5wcay5jcqa65wnshstch8e6nhnhmtmtagzqkdzv7k;
     gt r1 0u64 into r2;
     assert.eq r2 true;
     cast r0 r1 0u8 0u8 false false true into r3 as Proposal;
@@ -46,10 +46,10 @@ finalize create_proposal:
 function vote:
     input r0 as field.private;
     input r1 as boolean.private;
-    is.eq self.caller aleo13hfyln9uyq7epkqg4hcmlrfml4v0nl4ze7zqstd6wy25tqej3syqcs699l into r2;
-    is.eq self.caller aleo1xgg3n4qd5tczru5xdarytkdsww7hzd0fpzq2vl33z0cdatghvyqqcgm5yg into r3;
+    is.eq self.caller aleo1wgm8e6w4j2kww0pfwaq70ysernmnvk0sepusg2tcry96455nng9swf8jzg into r2;
+    is.eq self.caller aleo1ea6wetzk44709xp3dwurmm8he3ks22690pj9rhm5wysr79jj9u9qakjdrq into r3;
     or r2 r3 into r4;
-    is.eq self.caller aleo1ulp725qyzksnnwe8cpzy36uj0q39ev9fta7w52u45g0sa8qa258snwn7u2 into r5;
+    is.eq self.caller aleo1cw4zdgfgxr064yp43nf2n5d0k0cmrpafua0xqhlsr8w2kx0jsy8s6rcmuw into r5;
     or r4 r5 into r6;
     assert.eq r6 true;
     async vote r0 self.caller r1 into r7;
@@ -84,7 +84,7 @@ function execute_withdrawal:
     input r0 as field.private;
     input r1 as address.private;
     input r2 as u64.private;
-    assert.eq self.caller aleo1ekza6x7zftmgx9snh5j3h7ds0tw8qmzugh7sr0sfu72cvfe87yzsuxsewm;
+    assert.eq self.caller aleo1n4ws5s7vlt4cff9rk5vwuwza4vjja03my4p9j8d45fxy0ady6uzq9jjujy;
     call credits.aleo/transfer_public r1 r2 into r3;
     async execute_withdrawal r0 r1 r2 r3 into r4;
     output r4 as dao_voting_contract.aleo/execute_withdrawal.future;
@@ -107,7 +107,7 @@ finalize execute_withdrawal:
 
 function cancel_proposal:
     input r0 as field.private;
-    assert.eq self.caller aleo1nz5cpl2mmu3hmzmxamp2g2fk2zu46ha53r566nc5tjzgwl4qmc8se2z4yv;
+    assert.eq self.caller aleo172dqnystp78zhgfnn5wcay5jcqa65wnshstch8e6nhnhmtmtagzqkdzv7k;
     async cancel_proposal r0 into r1;
     output r1 as dao_voting_contract.aleo/cancel_proposal.future;
 
