@@ -1,13 +1,13 @@
 import credits.aleo;
 
 program dao_voting_contract.aleo {
-    
-    const TREASURY_WALLET: address = aleo1ekza6x7zftmgx9snh5j3h7ds0tw8qmzugh7sr0sfu72cvfe87yzsuxsewm;
-    const ADMIN: address           = aleo1nz5cpl2mmu3hmzmxamp2g2fk2zu46ha53r566nc5tjzgwl4qmc8se2z4yv;
 
-    const MEMBER_1: address = aleo13hfyln9uyq7epkqg4hcmlrfml4v0nl4ze7zqstd6wy25tqej3syqcs699l;
-    const MEMBER_2: address = aleo1xgg3n4qd5tczru5xdarytkdsww7hzd0fpzq2vl33z0cdatghvyqqcgm5yg;
-    const MEMBER_3: address = aleo1ulp725qyzksnnwe8cpzy36uj0q39ev9fta7w52u45g0sa8qa258snwn7u2;
+    const TREASURY_WALLET: address = aleo1n4ws5s7vlt4cff9rk5vwuwza4vjja03my4p9j8d45fxy0ady6uzq9jjujy;
+    const ADMIN: address           = aleo172dqnystp78zhgfnn5wcay5jcqa65wnshstch8e6nhnhmtmtagzqkdzv7k;
+
+    const MEMBER_1: address = aleo1wgm8e6w4j2kww0pfwaq70ysernmnvk0sepusg2tcry96455nng9swf8jzg;
+    const MEMBER_2: address = aleo1ea6wetzk44709xp3dwurmm8he3ks22690pj9rhm5wysr79jj9u9qakjdrq;
+    const MEMBER_3: address = aleo1cw4zdgfgxr064yp43nf2n5d0k0cmrpafua0xqhlsr8w2kx0jsy8s6rcmuw;
 
     // A proposal passes or is rejected when it reaches this many votes
     const MAJORITY: u8 = 2u8;
