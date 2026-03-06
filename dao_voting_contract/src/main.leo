@@ -1,9 +1,9 @@
 import credits.aleo;
 
-program dao.aleo {
-
-    const ADMIN: address           = aleo1nz5cpl2mmu3hmzmxamp2g2fk2zu46ha53r566nc5tjzgwl4qmc8se2z4yv;
+program dao_voting_contract.aleo {
+    
     const TREASURY_WALLET: address = aleo1ekza6x7zftmgx9snh5j3h7ds0tw8qmzugh7sr0sfu72cvfe87yzsuxsewm;
+    const ADMIN: address           = aleo1nz5cpl2mmu3hmzmxamp2g2fk2zu46ha53r566nc5tjzgwl4qmc8se2z4yv;
 
     const MEMBER_1: address = aleo13hfyln9uyq7epkqg4hcmlrfml4v0nl4ze7zqstd6wy25tqej3syqcs699l;
     const MEMBER_2: address = aleo1xgg3n4qd5tczru5xdarytkdsww7hzd0fpzq2vl33z0cdatghvyqqcgm5yg;
@@ -20,6 +20,11 @@ program dao.aleo {
         is_approved:  bool,
         is_executed:  bool,
         is_active:    bool,
+    }
+
+    struct VoteKey {
+    member:      address,
+    proposal_id: field,
     }
 
     // proposal_id (field) → Proposal
@@ -80,7 +85,7 @@ program dao.aleo {
         member:      address,
         approve:     bool
     ) {
-        let vote_key: field = BHP256::hash_to_field((member, proposal_id));
+        let vote_key: field = BHP256::hash_to_field(VoteKey { member: member, proposal_id: proposal_id });
         let already_voted: bool = Mapping::get_or_use(has_voted, vote_key, false);
         assert(!already_voted);
         Mapping::set(has_voted, vote_key, true);
@@ -182,4 +187,8 @@ program dao.aleo {
 
         Mapping::set(proposals, proposal_id, cancelled);
     }
+    
+    @noupgrade
+    async constructor() {}
 }
+
